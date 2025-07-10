@@ -244,6 +244,152 @@
     }
   </style>
 </head>
+
+<!-- Insert this at the end of your <body> before </body> -->
+<div id="ai-chatbot">
+  <div id="chat-icon" onclick="toggleChat()">
+    💬
+  </div>
+  <div id="chat-window">
+    <div id="chat-header">BlackWood AI Chat</div>
+    <div id="chat-body">
+      <div class="chat-message bot">Hi! How can I help you today?</div>
+    </div>
+    <div id="chat-input-container">
+      <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="handleChat(event)" />
+    </div>
+  </div>
+</div>
+
+<style>
+  #ai-chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  #chat-icon {
+    background: #38bdf8;
+    color: black;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 55px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #38bdf8;
+    animation: pulse-glow 2s infinite;
+  }
+
+  @keyframes pulse-glow {
+    0% { box-shadow: 0 0 10px #38bdf8; }
+    50% { box-shadow: 0 0 20px #38bdf8; }
+    100% { box-shadow: 0 0 10px #38bdf8; }
+  }
+
+  #chat-window {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 280px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid #38bdf8;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #38bdf8;
+  }
+
+  #chat-header {
+    background: #38bdf8;
+    color: black;
+    padding: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #chat-body {
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .chat-message {
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    max-width: 90%;
+    word-wrap: break-word;
+  }
+
+  .chat-message.bot {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    align-self: flex-start;
+  }
+
+  .chat-message.user {
+    background: #38bdf8;
+    color: black;
+    align-self: flex-end;
+  }
+
+  #chat-input-container {
+    padding: 0.75rem;
+    background: #0f172a;
+  }
+
+  #chat-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+  }
+
+  #chat-input:focus {
+    outline: 2px solid #38bdf8;
+  }
+</style>
+
+<script>
+  function toggleChat() {
+    const chat = document.getElementById("chat-window");
+    chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+  }
+
+  function handleChat(e) {
+    if (e.key === "Enter") {
+      const input = document.getElementById("chat-input");
+      const msg = input.value.trim();
+      if (msg) {
+        appendMessage("user", msg);
+        setTimeout(() => {
+          appendMessage("bot", "Thanks for your message! We'll get back to you soon.");
+        }, 700);
+        input.value = "";
+      }
+    }
+  }
+
+  function appendMessage(sender, text) {
+    const container = document.getElementById("chat-body");
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `chat-message ${sender}`;
+    msgDiv.textContent = text;
+    container.appendChild(msgDiv);
+    container.scrollTop = container.scrollHeight;
+  }
+</script>
+
 <body>
 
 <canvas id="bg"></canvas>
