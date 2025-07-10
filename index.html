@@ -17,6 +17,12 @@
       background: radial-gradient(circle at top left, #0f172a, #000000);
       color: white;
       overflow-x: hidden;
+      animation: pageFade 1.5s ease-in-out;
+    }
+
+    @keyframes pageFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     header, section, footer {
@@ -26,6 +32,30 @@
       margin: 0 auto;
       position: relative;
       z-index: 10;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      z-index: 100;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px #00ffff;
+    }
+
+    nav a {
+      color: #38bdf8;
+      margin: 0 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #a5b4fc;
+      text-shadow: 0 0 8px #38bdf8;
     }
 
     h1 {
@@ -63,18 +93,6 @@
       line-height: 1.6;
     }
 
-    nav a {
-      color: #38bdf8;
-      margin: 0 1rem;
-      font-weight: bold;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #a5b4fc;
-    }
-
     .logo {
       width: 100px;
       margin: 2rem auto;
@@ -85,7 +103,7 @@
     }
 
     @keyframes holoPulse {
-      0% {
+      0%, 100% {
         filter: drop-shadow(0 0 2px #00ffff)
                 drop-shadow(0 0 4px #8ec5fc)
                 drop-shadow(0 0 6px #e0c3fc);
@@ -94,11 +112,6 @@
         filter: drop-shadow(0 0 10px #00eaff)
                 drop-shadow(0 0 20px #8ec5fc)
                 drop-shadow(0 0 30px #e0c3fc);
-      }
-      100% {
-        filter: drop-shadow(0 0 2px #00ffff)
-                drop-shadow(0 0 4px #8ec5fc)
-                drop-shadow(0 0 6px #e0c3fc);
       }
     }
 
@@ -174,12 +187,8 @@
     }
 
     @keyframes glowText {
-      0% {
-        text-shadow: 0 0 5px #facc15, 0 0 10px #facc15, 0 0 15px #facc15;
-      }
-      100% {
-        text-shadow: 0 0 15px #facc15, 0 0 30px #facc15, 0 0 45px #facc15;
-      }
+      0% { text-shadow: 0 0 5px #facc15, 0 0 10px #facc15; }
+      100% { text-shadow: 0 0 15px #facc15, 0 0 30px #facc15; }
     }
 
     footer {
@@ -194,11 +203,52 @@
       height: 100vh;
       z-index: 0;
     }
+
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 5px;
+      background: #38bdf8;
+      z-index: 200;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+
+    #trail {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: #38bdf8;
+      box-shadow: 0 0 12px #38bdf8;
+      z-index: 999;
+    }
+
+    #projects button {
+      padding: 0.5rem 1rem;
+      margin: 0.3rem;
+      border: none;
+      border-radius: 6px;
+      background: #38bdf8;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #38bdf8;
+      transition: transform 0.2s;
+    }
+    #projects button:hover {
+      transform: scale(1.05);
+      background: #0ea5e9;
+      box-shadow: 0 0 15px #38bdf8;
+    }
   </style>
 </head>
 <body>
 
 <canvas id="bg"></canvas>
+<div id="progress-bar"></div>
+<div id="trail"></div>
 
 <header data-aos="fade-down">
   <svg class="logo" viewBox="0 0 64 64" fill="#00ffff">
@@ -223,6 +273,7 @@
   <nav>
     <a href="#services">Services</a>
     <a href="#about">About</a>
+    <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
@@ -236,6 +287,27 @@
   <h2>About Us</h2>
   <p>BlackWood Ai combines technical brilliance with imagination. We bring futuristic products to life with code, creativity, and care.</p>
 </section>
+
+<!-- ✅ New Dynamic Projects Section Inserted Below -->
+<section id="projects" data-aos="zoom-in">
+  <h2>Our Projects</h2>
+  <div style="margin-bottom: 2rem;">
+    <button onclick="filterProjects('all')">All</button>
+    <button onclick="filterProjects('ai')">AI</button>
+    <button onclick="filterProjects('web')">Web</button>
+    <button onclick="filterProjects('cloud')">Cloud</button>
+  </div>
+  <div id="project-grid" style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
+</section>
+
+<!-- Modal -->
+<div id="project-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:#111; padding:2rem; border-radius:12px; max-width:600px; color:white; position:relative;">
+    <button onclick="closeModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">&times;</button>
+    <h3 id="modal-title"></h3>
+    <p id="modal-description"></p>
+  </div>
+</div>
 
 <section id="contact" data-aos="fade-up">
   <h2>Contact Us</h2>
@@ -252,7 +324,6 @@
   &copy; 2025 BlackWood Ai — All rights reserved.
 </footer>
 
-<!-- JS Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
@@ -303,6 +374,59 @@
 
     form.reset();
   });
-</script>
-</body>
-  </html>
+
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    progressBar.style.width = `${scrolled * 100}%`;
+  });
+
+  const trail = document.getElementById("trail");
+  window.addEventListener("mousemove", (e) => {
+    trail.style.left = e.pageX + "px";
+    trail.style.top = e.pageY + "px";
+  });
+
+  const projects = [
+    { id: 1, title: "Neural Vision AI", category: "ai", description: "A real-time computer vision engine that learns and adapts." },
+    { id: 2, title: "CloudSync Hub", category: "cloud", description: "Secure and scalable cloud data syncing platform." },
+    { id: 3, title: "HoloSite Builder", category: "web", description: "Next-gen holographic web builder with drag-and-drop AI." },
+    { id: 4, title: "Quantum Query", category: "ai", description: "AI system for quantum-inspired data analysis." }
+  ];
+
+  const grid = document.getElementById("project-grid");
+  const modal = document.getElementById("project-modal");
+  const modalTitle = document.getElementById("modal-title");
+  const modalDesc = document.getElementById("modal-description");
+
+  function renderProjects(category) {
+    grid.innerHTML = "";
+    const filtered = category === 'all' ? projects : projects.filter(p => p.category === category);
+    filtered.forEach(p => {
+      const card = document.createElement("div");
+      card.style.padding = "1.5rem";
+      card.style.background = "rgba(255, 255, 255, 0.05)";
+      card.style.border = "1px solid rgba(255, 255, 255, 0.1)";
+      card.style.borderRadius = "12px";
+      card.style.cursor = "pointer";
+      card.style.backdropFilter = "blur(6px)";
+      card.style.boxShadow = "0 0 20px rgba(56, 189, 248, 0.3)";
+      card.style.transition = "transform 0.3s, box-shadow 0.3s";
+      card.onmouseover = () => card.style.transform = "translateY(-5px)";
+      card.onmouseout = () => card.style.transform = "translateY(0)";
+      card.onclick = () => openModal(p);
+
+      card.innerHTML = `<h3 style="color: #facc15; margin-bottom: 0.5rem;">${p.title}</h3><p style="color: rgba(255,255,255,0.85);">${p.description}</p>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function filterProjects(category) {
+    renderProjects(category);
+  }
+
+  function openModal(project) {
+    modalTitle.textContent = project.title;
+    modalDesc.textContent = project.description;
+    modal.style.display = "flex";
+  }
