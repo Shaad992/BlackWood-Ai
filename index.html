@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BlackWood Ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top left, #0f172a, #000000);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header, section, footer {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 3rem;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: goldenGlow 4s infinite linear, textPulse 2s infinite alternate;
+      text-shadow: 0 0 10px rgba(255,215,0,0.5);
+    }
+
+    @keyframes goldenGlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    @keyframes textPulse {
+      from { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFA500; }
+      to { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500; }
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #facc15;
+      text-shadow: 0 0 12px #facc15;
+    }
+
+    p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    nav a {
+      color: #38bdf8;
+      margin: 0 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #a5b4fc;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 2rem auto;
+      filter: drop-shadow(0 0 5px cyan)
+              drop-shadow(0 0 10px violet)
+              drop-shadow(0 0 15px #00ffff);
+      animation: holoPulse 6s infinite ease-in-out, float 5s infinite ease-in-out;
+    }
+
+    @keyframes holoPulse {
+      0% {
+        filter: drop-shadow(0 0 2px #00ffff)
+                drop-shadow(0 0 4px #8ec5fc)
+                drop-shadow(0 0 6px #e0c3fc);
+      }
+      50% {
+        filter: drop-shadow(0 0 10px #00eaff)
+                drop-shadow(0 0 20px #8ec5fc)
+                drop-shadow(0 0 30px #e0c3fc);
+      }
+      100% {
+        filter: drop-shadow(0 0 2px #00ffff)
+                drop-shadow(0 0 4px #8ec5fc)
+                drop-shadow(0 0 6px #e0c3fc);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    #contact {
+      background: rgba(255, 215, 0, 0.05);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+      animation: contactGlow 4s infinite alternate;
+    }
+
+    @keyframes contactGlow {
+      from {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.2), 0 0 30px rgba(255, 215, 0, 0.4);
+      }
+      to {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.4), 0 0 50px rgba(255, 215, 0, 0.6);
+      }
+    }
+
+    form {
+      background: rgba(255,255,255,0.03);
+      padding: 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    input, textarea {
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    input:focus, textarea:focus {
+      outline: 2px solid #facc15;
+      background: rgba(255,255,255,0.12);
+    }
+
+    button {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #facc15, #fbbf24, #fde68a);
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      animation: shimmer 3s infinite linear;
+      background-size: 200% auto;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .form-message {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #facc15;
+      animation: glowText 2s infinite alternate;
+    }
+
+    @keyframes glowText {
+      0% {
+        text-shadow: 0 0 5px #facc15, 0 0 10px #facc15, 0 0 15px #facc15;
+      }
+      100% {
+        text-shadow: 0 0 15px #facc15, 0 0 30px #facc15, 0 0 45px #facc15;
+      }
+    }
+
+    footer {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    #bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<header data-aos="fade-down">
+  <svg class="logo" viewBox="0 0 64 64" fill="#00ffff">
+    <g stroke="#00ffff" stroke-width="2" fill="none">
+      <circle cx="12" cy="32" r="2"/>
+      <circle cx="20" cy="20" r="2"/>
+      <circle cx="20" cy="44" r="2"/>
+      <circle cx="32" cy="32" r="2"/>
+      <circle cx="44" cy="20" r="2"/>
+      <circle cx="44" cy="44" r="2"/>
+      <circle cx="52" cy="32" r="2"/>
+      <path d="M12 32h8"/>
+      <path d="M20 20l12 12"/>
+      <path d="M20 44l12-12"/>
+      <path d="M32 32l12-12"/>
+      <path d="M32 32l12 12"/>
+      <path d="M52 32h-8"/>
+    </g>
+  </svg>
+  <h1>BlackWood Ai</h1>
+  <p>Magical, intelligent software that feels like science fiction come alive.</p>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="services" data-aos="fade-right">
+  <h2>Our Services</h2>
+  <p>We build AI solutions, cloud software, and immersive digital experiences that think, adapt, and grow with your business.</p>
+</section>
+
+<section id="about" data-aos="fade-left">
+  <h2>About Us</h2>
+  <p>BlackWood Ai combines technical brilliance with imagination. We bring futuristic products to life with code, creativity, and care.</p>
+</section>
+
+<section id="contact" data-aos="fade-up">
+  <h2>Contact Us</h2>
+  <form id="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+    <div class="form-message" id="form-message"></div>
+  </form>
+</section>
+
+<footer data-aos="fade-in">
+  &copy; 2025 BlackWood Ai — All rights reserved.
+</footer>
+
+<!-- JS Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  tsParticles.load("bg", {
+    background: { color: "transparent" },
+    particles: {
+      number: { value: 70 },
+      color: { value: "#38bdf8" },
+      links: { enable: true, color: "#38bdf8", opacity: 0.3, distance: 120 },
+      move: { enable: true, speed: 1 },
+      size: { value: { min: 1, max: 3 } },
+      opacity: { value: 0.5 }
+    },
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "repulse" },
+        onClick: { enable: true, mode: "push" }
+      },
+      modes: {
+        repulse: { distance: 100, duration: 0.4 },
+        push: { quantity: 3 }
+      }
+    },
+    detectRetina: true
+  });
+
+  AOS.init({ duration: 1000, once: true });
+
+  const form = document.getElementById("contact-form");
+  const messageDiv = document.getElementById("form-message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const response = await fetch("https://formspree.io/f/manjrydn", {
+      method: "POST",
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    });
+
+    if (response.ok) {
+      messageDiv.textContent = "Message sent successfully!";
+      messageDiv.style.color = "#facc15";
+    } else {
+      messageDiv.textContent = "Failed to send. Try again later.";
+      messageDiv.style.color = "#f87171";
+    }
+
+    form.reset();
+  });
+</script>
+</body>
+  </html>
