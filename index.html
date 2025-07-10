@@ -11,7 +11,6 @@
       margin: 0; padding: 0; box-sizing: border-box;
       scroll-behavior: smooth;
     }
-
     body {
       font-family: 'Orbitron', sans-serif;
       background: radial-gradient(circle at top left, #0f172a, #000000);
@@ -19,7 +18,6 @@
       overflow-x: hidden;
       animation: pageFade 1.5s ease-in-out;
     }
-
     @keyframes pageFade {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -44,7 +42,6 @@
       border-bottom: 2px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 0 15px #00ffff;
     }
-
     nav a {
       color: #38bdf8;
       margin: 0 1rem;
@@ -52,7 +49,6 @@
       text-decoration: none;
       transition: color 0.3s ease;
     }
-
     nav a:hover {
       color: #a5b4fc;
       text-shadow: 0 0 8px #38bdf8;
@@ -67,12 +63,10 @@
       animation: goldenGlow 4s infinite linear, textPulse 2s infinite alternate;
       text-shadow: 0 0 10px rgba(255,215,0,0.5);
     }
-
     @keyframes goldenGlow {
       0% { background-position: 0% 50%; }
       100% { background-position: 200% 50%; }
     }
-
     @keyframes textPulse {
       from { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFA500; }
       to { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500; }
@@ -127,14 +121,9 @@
       box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
       animation: contactGlow 4s infinite alternate;
     }
-
     @keyframes contactGlow {
-      from {
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.2), 0 0 30px rgba(255, 215, 0, 0.4);
-      }
-      to {
-        box-shadow: 0 0 25px rgba(255, 215, 0, 0.4), 0 0 50px rgba(255, 215, 0, 0.6);
-      }
+      from { box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
+      to { box-shadow: 0 0 50px rgba(255, 215, 0, 0.6); }
     }
 
     form {
@@ -158,7 +147,6 @@
 
     input:focus, textarea:focus {
       outline: 2px solid #facc15;
-      background: rgba(255,255,255,0.12);
     }
 
     button {
@@ -187,8 +175,8 @@
     }
 
     @keyframes glowText {
-      0% { text-shadow: 0 0 5px #facc15, 0 0 10px #facc15; }
-      100% { text-shadow: 0 0 15px #facc15, 0 0 30px #facc15; }
+      0% { text-shadow: 0 0 5px #facc15; }
+      100% { text-shadow: 0 0 30px #facc15; }
     }
 
     footer {
@@ -204,51 +192,78 @@
       z-index: 0;
     }
 
-    #progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 5px;
-      background: #38bdf8;
-      z-index: 200;
-      box-shadow: 0 0 10px #38bdf8;
+    #projects .filters {
+      margin-bottom: 2rem;
+    }
+    .filters button {
+      margin: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #1e3a8a;
+      color: #facc15;
+      border: 1px solid #facc15;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+    .filters button:hover {
+      background: #2563eb;
     }
 
-    #trail {
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid #38bdf8;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .project:hover {
+      background: rgba(56, 189, 248, 0.1);
+      transform: scale(1.03);
+    }
+
+    #modal {
       position: fixed;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      pointer-events: none;
-      background: #38bdf8;
-      box-shadow: 0 0 12px #38bdf8;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
       z-index: 999;
     }
-
-    #projects button {
-      padding: 0.5rem 1rem;
-      margin: 0.3rem;
-      border: none;
-      border-radius: 6px;
-      background: #38bdf8;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px #38bdf8;
-      transition: transform 0.2s;
+    #modal-content {
+      background: #0f172a;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      color: white;
+      text-align: left;
+      border: 2px solid #38bdf8;
     }
-    #projects button:hover {
-      transform: scale(1.05);
-      background: #0ea5e9;
-      box-shadow: 0 0 15px #38bdf8;
+    #modal-close {
+      background: #f87171;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: white;
+      font-weight: bold;
+      margin-top: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
 
 <canvas id="bg"></canvas>
-<div id="progress-bar"></div>
-<div id="trail"></div>
 
 <header data-aos="fade-down">
   <svg class="logo" viewBox="0 0 64 64" fill="#00ffff">
@@ -288,26 +303,16 @@
   <p>BlackWood Ai combines technical brilliance with imagination. We bring futuristic products to life with code, creativity, and care.</p>
 </section>
 
-<!-- ✅ New Dynamic Projects Section Inserted Below -->
-<section id="projects" data-aos="zoom-in">
+<section id="projects" data-aos="fade-up">
   <h2>Our Projects</h2>
-  <div style="margin-bottom: 2rem;">
+  <div class="filters">
     <button onclick="filterProjects('all')">All</button>
     <button onclick="filterProjects('ai')">AI</button>
     <button onclick="filterProjects('web')">Web</button>
-    <button onclick="filterProjects('cloud')">Cloud</button>
+    <button onclick="filterProjects('app')">App</button>
   </div>
-  <div id="project-grid" style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
+  <div class="project-grid" id="project-grid"></div>
 </section>
-
-<!-- Modal -->
-<div id="project-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
-  <div style="background:#111; padding:2rem; border-radius:12px; max-width:600px; color:white; position:relative;">
-    <button onclick="closeModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">&times;</button>
-    <h3 id="modal-title"></h3>
-    <p id="modal-description"></p>
-  </div>
-</div>
 
 <section id="contact" data-aos="fade-up">
   <h2>Contact Us</h2>
@@ -323,6 +328,14 @@
 <footer data-aos="fade-in">
   &copy; 2025 BlackWood Ai — All rights reserved.
 </footer>
+
+<div id="modal">
+  <div id="modal-content">
+    <h3 id="modal-title"></h3>
+    <p id="modal-description"></p>
+    <button id="modal-close">Close</button>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -375,58 +388,48 @@
     form.reset();
   });
 
-  const progressBar = document.getElementById('progress-bar');
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    progressBar.style.width = `${scrolled * 100}%`;
-  });
-
-  const trail = document.getElementById("trail");
-  window.addEventListener("mousemove", (e) => {
-    trail.style.left = e.pageX + "px";
-    trail.style.top = e.pageY + "px";
-  });
-
-  const projects = [
-    { id: 1, title: "Neural Vision AI", category: "ai", description: "A real-time computer vision engine that learns and adapts." },
-    { id: 2, title: "CloudSync Hub", category: "cloud", description: "Secure and scalable cloud data syncing platform." },
-    { id: 3, title: "HoloSite Builder", category: "web", description: "Next-gen holographic web builder with drag-and-drop AI." },
-    { id: 4, title: "Quantum Query", category: "ai", description: "AI system for quantum-inspired data analysis." }
+  const projectData = [
+    { title: "AI Chatbot", description: "A smart assistant powered by NLP.", category: "ai" },
+    { title: "E-commerce Platform", description: "Online shopping site with real-time tracking.", category: "web" },
+    { title: "Fitness App", description: "Personalized health tracking app.", category: "app" },
+    { title: "Image Generator", description: "AI tool to generate stunning images.", category: "ai" },
   ];
 
   const grid = document.getElementById("project-grid");
-  const modal = document.getElementById("project-modal");
+  const modal = document.getElementById("modal");
   const modalTitle = document.getElementById("modal-title");
   const modalDesc = document.getElementById("modal-description");
+  const modalClose = document.getElementById("modal-close");
 
-  function renderProjects(category) {
+  function renderProjects(filter) {
     grid.innerHTML = "";
-    const filtered = category === 'all' ? projects : projects.filter(p => p.category === category);
+    const filtered = projectData.filter(p => filter === "all" || p.category === filter);
     filtered.forEach(p => {
-      const card = document.createElement("div");
-      card.style.padding = "1.5rem";
-      card.style.background = "rgba(255, 255, 255, 0.05)";
-      card.style.border = "1px solid rgba(255, 255, 255, 0.1)";
-      card.style.borderRadius = "12px";
-      card.style.cursor = "pointer";
-      card.style.backdropFilter = "blur(6px)";
-      card.style.boxShadow = "0 0 20px rgba(56, 189, 248, 0.3)";
-      card.style.transition = "transform 0.3s, box-shadow 0.3s";
-      card.onmouseover = () => card.style.transform = "translateY(-5px)";
-      card.onmouseout = () => card.style.transform = "translateY(0)";
-      card.onclick = () => openModal(p);
-
-      card.innerHTML = `<h3 style="color: #facc15; margin-bottom: 0.5rem;">${p.title}</h3><p style="color: rgba(255,255,255,0.85);">${p.description}</p>`;
-      grid.appendChild(card);
+      const div = document.createElement("div");
+      div.className = "project";
+      div.innerHTML = `<h3>${p.title}</h3><p>${p.category.toUpperCase()}</p>`;
+      div.onclick = () => {
+        modalTitle.textContent = p.title;
+        modalDesc.textContent = p.description;
+        modal.style.display = "flex";
+      };
+      grid.appendChild(div);
     });
   }
 
-  function filterProjects(category) {
-    renderProjects(category);
+  function filterProjects(cat) {
+    renderProjects(cat);
   }
 
-  function openModal(project) {
-    modalTitle.textContent = project.title;
-    modalDesc.textContent = project.description;
-    modal.style.display = "flex";
-  }
+  modalClose.onclick = () => {
+    modal.style.display = "none";
+  };
+
+  window.onclick = (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  };
+
+  renderProjects("all");
+</script>
+</body>
+</html>
